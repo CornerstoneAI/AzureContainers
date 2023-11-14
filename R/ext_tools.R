@@ -55,17 +55,8 @@ call_docker <- function(cmd="", ..., echo=getOption("azure_containers_tool_echo"
     if(length(cmd) == 1 && grepl(" ", cmd, fixed=TRUE))
         cmd <- strsplit(cmd, "\\s+")[[1]]
 
-    win <- .Platform$OS.type == "windows"
-    if(!win)
-    {
-        dockercmd <- "sudo"
-        realcmd <- c(.AzureContainers$docker, cmd)
-    }
-    else
-    {
-        dockercmd <- .AzureContainers$docker
-        realcmd <- cmd
-    }
+    dockercmd <- .AzureContainers$docker
+    realcmd <- cmd
 
     echo <- as.logical(echo)
     val <- processx::run(dockercmd, realcmd, ..., echo=echo)
@@ -110,17 +101,8 @@ call_docker_compose <- function(cmd="", ..., echo=getOption("azure_containers_to
     if(length(cmd) == 1 && grepl(" ", cmd, fixed=TRUE))
         cmd <- strsplit(cmd, "\\s+")[[1]]
 
-    win <- .Platform$OS.type == "windows"
-    if(!win)
-    {
-        dcmpcmd <- "sudo"
-        realcmd <- c(.AzureContainers$dockercompose, cmd)
-    }
-    else
-    {
-        dcmpcmd <- .AzureContainers$dockercompose
-        realcmd <- cmd
-    }
+    dcmpcmd <- .AzureContainers$dockercompose
+    realcmd <- cmd
 
     echo <- as.logical(echo)
     val <- processx::run(dcmpcmd, realcmd, ..., echo=echo)
